@@ -54,6 +54,8 @@ func IsReferenceToOtherPackage(expr ast.Expr) (bool, string) {
 			return false, ""
 		}
 		return true, name
+	case *ast.ArrayType:
+		return IsReferenceToOtherPackage(t.Elt)
 	default:
 		return false, ""
 	}
