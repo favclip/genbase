@@ -32,10 +32,10 @@ type FileInfos []*FileInfo
 
 // try http://goast.yuroyoro.net/ with http://play.golang.org/p/ruqMMsbDaw
 type TypeInfo struct {
-	FileInfo *FileInfo
-	GenDecl  *ast.GenDecl
-	TypeSpec *ast.TypeSpec
-	Comment  *ast.Comment
+	FileInfo         *FileInfo
+	GenDecl          *ast.GenDecl
+	TypeSpec         *ast.TypeSpec
+	AnnotatedComment *ast.Comment
 }
 type TypeInfos []*TypeInfo
 
@@ -138,7 +138,7 @@ func (pkg *PackageInfo) CollectTaggedTypeInfos(tag string) TypeInfos {
 
 	for _, t := range types {
 		if c := findAnnotation(t.Doc(), tag); c != nil {
-			t.Comment = c
+			t.AnnotatedComment = c
 			ret = append(ret, t)
 		}
 	}

@@ -1,5 +1,6 @@
 package a
 
+// A is struct
 // +test
 type A struct {
 }
@@ -7,6 +8,7 @@ type A struct {
 type (
 	// +test
 	B struct{}
-	// +test
+	// C is struct
+	// +test: opts
 	C struct{}
 )

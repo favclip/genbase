@@ -32,7 +32,7 @@ func findAnnotation(doc *ast.CommentGroup, directive string) *ast.Comment {
 
 		t = strings.TrimPrefix(t, directive)
 
-		if len(t) > 0 && t[0] != ' ' {
+		if len(t) > 0 && (t[0] != ' ' && t[0] != ':') {
 			continue
 		}
 
