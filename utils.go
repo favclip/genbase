@@ -42,6 +42,8 @@ func findAnnotation(doc *ast.CommentGroup, directive string) *ast.Comment {
 	return nil
 }
 
+// IsReferenceToOtherPackage returns expr contains reference to other packages.
+// this function used with Generator#AddImport method.
 func IsReferenceToOtherPackage(expr ast.Expr) (bool, string) {
 	switch t := expr.(type) {
 	case *ast.Ident:
@@ -61,6 +63,7 @@ func IsReferenceToOtherPackage(expr ast.Expr) (bool, string) {
 	}
 }
 
+// ExprToTypeName convert ast.Expr to type name.
 func ExprToTypeName(expr ast.Expr) (string, error) {
 	if ident, ok := expr.(*ast.Ident); ok {
 		return ident.Name, nil
@@ -93,6 +96,7 @@ func ExprToTypeName(expr ast.Expr) (string, error) {
 	return "", errors.New("can't detect type name")
 }
 
+// ExprToBaseTypeName convert ast.Expr to type name without "*" and "[]".
 func ExprToBaseTypeName(expr ast.Expr) (string, error) {
 	if ident, ok := expr.(*ast.Ident); ok {
 		return ident.Name, nil
@@ -125,6 +129,8 @@ func ExprToBaseTypeName(expr ast.Expr) (string, error) {
 	return "", errors.New("can't detect type name")
 }
 
+// GetKeys extracts tag value.
+// likes reflect.StructTag.Get(string)
 func GetKeys(tag string) []string {
 	result := []string{}
 
