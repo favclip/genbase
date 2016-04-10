@@ -7,9 +7,10 @@ import (
 	"go/build"
 	"go/parser"
 	"go/token"
+	"go/types"
 	"strings"
 
-	"golang.org/x/tools/go/types"
+	_ "golang.org/x/tools/go/gcimporter15"
 )
 
 var (
