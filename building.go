@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// Generator is the hub of genbase.
 type Generator struct {
 	Package *PackageInfo
 
@@ -15,21 +16,25 @@ type Generator struct {
 	RequiredImports []*Import
 }
 
+// Import is import statement information for generated code.
 type Import struct {
 	Ident string // e.g. "gb"
 	Path  string // e.g. "github.com/favclip/genbase"
 }
 
+// NewGenerator is create new Generator.
 func NewGenerator(pkg *PackageInfo) *Generator {
 	return &Generator{
 		Package: pkg,
 	}
 }
 
+// Printf is writing code for buffer for generated code.
 func (g *Generator) Printf(format string, args ...interface{}) {
 	g.Buf.WriteString(fmt.Sprintf(format, args...))
 }
 
+// AddImport is add package to generated code.
 func (g *Generator) AddImport(path string, ident string) {
 	if strings.HasPrefix(path, `"`) && strings.HasSuffix(path, `"`) {
 		path = path[1 : len(path)-1]
@@ -37,6 +42,7 @@ func (g *Generator) AddImport(path string, ident string) {
 	g.RequiredImports = append(g.RequiredImports, &Import{Ident: ident, Path: path})
 }
 
+// PrintHeader is print header of generated code to buffer.
 func (g *Generator) PrintHeader(cmdName string, args *[]string) {
 	if cmdName == "" && args != nil {
 		cmdName = (*args)[0]
@@ -62,6 +68,7 @@ func (g *Generator) PrintHeader(cmdName string, args *[]string) {
 	g.Printf(")\n")
 }
 
+// Format is apply gofmt to generated code.
 func (g *Generator) Format() ([]byte, error) {
 	src, err := format.Source(g.Buf.Bytes())
 	if err != nil {
