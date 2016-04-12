@@ -5,12 +5,11 @@ import (
 	"fmt"
 	"go/ast"
 	"go/build"
+	"go/importer"
 	"go/parser"
 	"go/token"
 	"go/types"
 	"strings"
-
-	_ "golang.org/x/tools/go/gcimporter15"
 )
 
 var (
@@ -107,6 +106,7 @@ func (p *Parser) parsePackage(directory string, fileNames []string, codes []stri
 	// resolve types
 	config := types.Config{
 		FakeImportC:              true,
+		Importer:                 importer.Default(),
 		IgnoreFuncBodies:         true,
 		DisableUnusedImportCheck: true,
 	}
