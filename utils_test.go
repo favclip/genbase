@@ -8,11 +8,11 @@ func TestPathJoinAll(t *testing.T) {
 	ps := pathJoinAll("misc/fixture", "a", "b")
 
 	if len(ps) != 2 {
-		t.Fatalf("unexpected", len(ps))
+		t.Fatalf("unexpected: %v", len(ps))
 	}
 
 	if ps[0] != "misc/fixture/a" || ps[1] != "misc/fixture/b" {
-		t.Fatalf("unexpected", ps)
+		t.Fatal("unexpected", ps)
 	}
 }
 
